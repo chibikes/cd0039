@@ -40,13 +40,15 @@ def get_drinks_detail():
 @requires_auth('post:drinks')
 def create_drink():
     try:
-        print('hello world')
         body = request.get_json()
-        print(body)
         new_title=body.get('title', None)
         new_recipe=body.get('recipe', None)
+        
+        new_recipe = f"{new_recipe}"
+        new_recipe = new_recipe.replace("'", '"')
 
         drink = Drink(title=new_title, recipe=new_recipe)
+        
         drink.insert()
     except:
         print(sys.exc_info())
