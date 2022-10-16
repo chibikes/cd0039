@@ -1,3 +1,4 @@
+import os
 import json
 from flask import request, _request_ctx_stack, abort
 from functools import wraps
@@ -6,8 +7,11 @@ from urllib.request import urlopen
 
 
 AUTH0_DOMAIN = 'dev-6fsgzpr4.us.auth0.com'
+os.getenv('AUTH0_DOMAIN')
 ALGORITHMS = ['RS256']
 API_AUDIENCE = 'trivia'
+os.getenv('API_AUDIENCE')
+
 
 # AuthError Exception
 '''
@@ -27,10 +31,11 @@ class AuthError(Exception):
 def get_token_auth_header():
     auth = request.headers.get('Authorization', None)
     if not auth:
-        raise AuthError({
-            'code': 'authorization_header_missing',
-            'description': 'Authorization header is expected.'
-        }, 401)
+        # raise AuthError({
+        #     'code': 'authorization_header_missing',
+        #     'description': 'Authorization header is expected.'
+        # }, 401)
+        abort(401)
     parts = auth.split()
     if parts[0].lower() != 'bearer':
         raise AuthError({
