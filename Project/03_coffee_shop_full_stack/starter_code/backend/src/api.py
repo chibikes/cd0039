@@ -75,8 +75,9 @@ def update_drink(drink_id):
         new_title = body.get('title', None)
         new_recipe = body.get('recipe', None)
 
-        new_recipe = f"{new_recipe}"
-        new_recipe = new_recipe.replace("'", '"')
+        if new_recipe is not None:
+            new_recipe = f"{new_recipe}"
+            new_recipe = new_recipe.replace("'", '"')
 
         drink.title = new_title or drink.title
         drink.recipe = new_recipe or drink.recipe
